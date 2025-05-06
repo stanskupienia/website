@@ -3,10 +3,471 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hosting a Website is Easy</title>
+    <title>Student Dashboard - Warsaw Weather & Szybki Przelew Trading</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1976D2;
+            --secondary: #4CAF50;
+            --neutral-dark: #333333;
+            --neutral-medium: #6B7280;
+            --neutral-light: #E1E5EB;
+            --neutral-lightest: #F9FAFB;
+            --positive: #4CAF50;
+            --negative: #F44336;
+            --white: #FFFFFF;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: #F5F7FA;
+            color: var(--neutral-dark);
+            line-height: 1.5;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            padding: 20px 0;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--neutral-light);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .dashboard {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .card {
+            background-color: var(--white);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid var(--neutral-light);
+            background-color: var(--neutral-lightest);
+        }
+
+        .panel-content {
+            padding: 20px;
+        }
+
+        .weather-current {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            border-bottom: 1px solid var(--neutral-light);
+        }
+
+        .weather-details {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .weather-details-item .label {
+            font-size: 12px;
+            color: var(--neutral-medium);
+        }
+
+        .weather-details-item .value {
+            font-weight: 500;
+            margin-top: 5px;
+        }
+
+        .forecast-list {
+            list-style: none;
+        }
+
+        .forecast-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--neutral-light);
+        }
+
+        .forecast-item:last-child {
+            border-bottom: none;
+        }
+
+        .trading-current {
+            padding: 20px;
+            border-bottom: 1px solid var(--neutral-light);
+        }
+
+        .price-large {
+            font-size: 28px;
+            font-weight: 300;
+            margin: 5px 0;
+        }
+
+        .price-change {
+            display: flex;
+            align-items: center;
+            color: var(--neutral-medium);
+            font-size: 14px;
+        }
+
+        .price-details {
+            display: grid;
+            grid-template-columns: auto auto;
+            gap: 5px 15px;
+            text-align: right;
+            font-size: 14px;
+        }
+
+        .price-details-label {
+            text-align: right;
+            color: var(--neutral-medium);
+        }
+
+        .trading-chart {
+            height: 300px;
+            margin: 20px 0;
+            background-color: var(--neutral-lightest);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+        }
+
+        .trading-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .stat-card {
+            background-color: var(--neutral-lightest);
+            padding: 15px;
+            border-radius: 8px;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: var(--neutral-medium);
+        }
+
+        .stat-value {
+            font-weight: 500;
+            margin-top: 5px;
+        }
+
+        .historical-data {
+            margin-top: 20px;
+        }
+
+        .history-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+
+        .history-table th,
+        .history-table td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        .history-table th {
+            color: var(--neutral-medium);
+            font-weight: 500;
+            border-bottom: 1px solid var(--neutral-light);
+        }
+
+        .history-table td {
+            border-bottom: 1px solid var(--neutral-light);
+        }
+
+        .history-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .text-right {
+            text-align: right;
+        }
+
+        footer {
+            margin-top: 40px;
+            padding: 20px 0;
+            text-align: center;
+            color: var(--neutral-medium);
+            font-size: 14px;
+            border-top: 1px solid var(--neutral-light);
+        }
+
+        @media (max-width: 768px) {
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
-    <h1>Hosting a website is easy</h1>
-    <p>This is a simple HTML file that demonstrates how easy it is to show the message "Hosting a website is easy".</p>
+    <div class="container">
+        <header>
+            <div class="header-content">
+                <div class="logo">Student Dashboard</div>
+                <div class="date">May 6, 2025</div>
+            </div>
+        </header>
+
+        <div class="dashboard">
+            <!-- Weather Panel -->
+            <div class="card">
+                <div class="panel-header">
+                    <h2>Warsaw Weather Forecast</h2>
+                    <span class="material-icons">refresh</span>
+                </div>
+                <div class="weather-current">
+                    <div>
+                        <div style="color: var(--neutral-medium); font-size: 14px;">May 6, 2025</div>
+                        <div class="price-large">12°C</div>
+                        <div style="color: var(--neutral-medium);">Partly cloudy</div>
+                    </div>
+                    <div style="text-align: center; font-size: 48px;">
+                        <span class="material-icons" style="color: var(--secondary);">cloud</span>
+                    </div>
+                </div>
+                
+                <div class="panel-content">
+                    <div class="weather-details">
+                        <div class="weather-details-item">
+                            <div class="label">Humidity</div>
+                            <div class="value">65%</div>
+                        </div>
+                        <div class="weather-details-item">
+                            <div class="label">Wind</div>
+                            <div class="value">12 km/h</div>
+                        </div>
+                        <div class="weather-details-item">
+                            <div class="label">Feels Like</div>
+                            <div class="value">10°C</div>
+                        </div>
+                        <div class="weather-details-item">
+                            <div class="label">Pressure</div>
+                            <div class="value">1012 hPa</div>
+                        </div>
+                    </div>
+                    
+                    <h3 style="margin: 20px 0 10px; font-size: 16px;">5-Day Forecast</h3>
+                    <ul class="forecast-list">
+                        <li class="forecast-item">
+                            <div style="width: 25%;">Wednesday</div>
+                            <div style="width: 25%; text-align: center;">
+                                <span class="material-icons" style="color: var(--secondary);">wb_sunny</span>
+                            </div>
+                            <div style="width: 25%; text-align: center; color: var(--neutral-medium);">10%</div>
+                            <div style="width: 25%; text-align: right;">
+                                <span style="font-weight: 500;">14°</span>
+                                <span style="color: var(--neutral-medium); margin-left: 5px;">9°</span>
+                            </div>
+                        </li>
+                        <li class="forecast-item">
+                            <div style="width: 25%;">Thursday</div>
+                            <div style="width: 25%; text-align: center;">
+                                <span class="material-icons" style="color: var(--secondary);">cloud</span>
+                            </div>
+                            <div style="width: 25%; text-align: center; color: var(--neutral-medium);">30%</div>
+                            <div style="width: 25%; text-align: right;">
+                                <span style="font-weight: 500;">12°</span>
+                                <span style="color: var(--neutral-medium); margin-left: 5px;">8°</span>
+                            </div>
+                        </li>
+                        <li class="forecast-item">
+                            <div style="width: 25%;">Friday</div>
+                            <div style="width: 25%; text-align: center;">
+                                <span class="material-icons" style="color: var(--secondary);">grain</span>
+                            </div>
+                            <div style="width: 25%; text-align: center; color: var(--neutral-medium);">70%</div>
+                            <div style="width: 25%; text-align: right;">
+                                <span style="font-weight: 500;">11°</span>
+                                <span style="color: var(--neutral-medium); margin-left: 5px;">7°</span>
+                            </div>
+                        </li>
+                        <li class="forecast-item">
+                            <div style="width: 25%;">Saturday</div>
+                            <div style="width: 25%; text-align: center;">
+                                <span class="material-icons" style="color: var(--secondary);">cloud</span>
+                            </div>
+                            <div style="width: 25%; text-align: center; color: var(--neutral-medium);">20%</div>
+                            <div style="width: 25%; text-align: right;">
+                                <span style="font-weight: 500;">13°</span>
+                                <span style="color: var(--neutral-medium); margin-left: 5px;">8°</span>
+                            </div>
+                        </li>
+                        <li class="forecast-item">
+                            <div style="width: 25%;">Sunday</div>
+                            <div style="width: 25%; text-align: center;">
+                                <span class="material-icons" style="color: var(--secondary);">wb_sunny</span>
+                            </div>
+                            <div style="width: 25%; text-align: center; color: var(--neutral-medium);">5%</div>
+                            <div style="width: 25%; text-align: right;">
+                                <span style="font-weight: 500;">15°</span>
+                                <span style="color: var(--neutral-medium); margin-left: 5px;">10°</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Trading Panel -->
+            <div class="card">
+                <div class="panel-header">
+                    <h2>Szybki Przelew w Coffeedesk/PLN Trading Chart</h2>
+                    <div style="display: flex; gap: 10px;">
+                        <span class="material-icons">info_outline</span>
+                        <span class="material-icons">filter_list</span>
+                    </div>
+                </div>
+                <div class="trading-current">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-end;">
+                        <div>
+                            <div style="color: var(--neutral-medium); font-size: 14px;">Current Price</div>
+                            <div class="price-large">20.00 PLN</div>
+                            <div class="price-change">
+                                <span>0.00 (0.00%)</span>
+                                <span class="material-icons" style="font-size: 14px; margin-left: 5px;">remove</span>
+                            </div>
+                        </div>
+                        <div class="price-details">
+                            <div class="price-details-label">Open:</div>
+                            <div>20.00 PLN</div>
+                            <div class="price-details-label">High:</div>
+                            <div>20.00 PLN</div>
+                            <div class="price-details-label">Low:</div>
+                            <div>20.00 PLN</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="panel-content">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 15px;">
+                        <div style="display: flex; gap: 5px;">
+                            <button style="padding: 5px 10px; background-color: var(--primary); color: white; border: none; border-radius: 4px; cursor: pointer;">1D</button>
+                            <button style="padding: 5px 10px; background-color: transparent; color: var(--neutral-medium); border: none; border-radius: 4px; cursor: pointer;">1W</button>
+                            <button style="padding: 5px 10px; background-color: transparent; color: var(--neutral-medium); border: none; border-radius: 4px; cursor: pointer;">1M</button>
+                            <button style="padding: 5px 10px; background-color: transparent; color: var(--neutral-medium); border: none; border-radius: 4px; cursor: pointer;">1Y</button>
+                            <button style="padding: 5px 10px; background-color: transparent; color: var(--neutral-medium); border: none; border-radius: 4px; cursor: pointer;">All</button>
+                        </div>
+                        <div style="display: flex; gap: 5px; align-items: center;">
+                            <span class="material-icons" style="color: var(--neutral-medium); cursor: pointer;">zoom_in</span>
+                            <span class="material-icons" style="color: var(--neutral-medium); cursor: pointer;">zoom_out</span>
+                        </div>
+                    </div>
+                    
+                    <div class="trading-chart">
+                        <div style="text-align: center; color: var(--neutral-medium);">
+                            <p>Chart showing flat line at 20 PLN since 2020</p>
+                            <p style="font-size: 14px; margin-top: 10px;">Data shown from 2020 to 2025</p>
+                        </div>
+                    </div>
+                    
+                    <div class="trading-stats">
+                        <div class="stat-card">
+                            <div class="stat-label">Volume 24h</div>
+                            <div class="stat-value">125,000</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-label">Market Cap</div>
+                            <div class="stat-value">2.5M PLN</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-label">Stability</div>
+                            <div class="stat-value" style="color: var(--positive); display: flex; align-items: center;">
+                                <span>High</span>
+                                <span class="material-icons" style="font-size: 14px; margin-left: 5px;">check_circle</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="historical-data">
+                        <h3 style="margin-bottom: 10px; font-size: 16px;">Historical Data</h3>
+                        <table class="history-table">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th class="text-right">Open</th>
+                                    <th class="text-right">Close</th>
+                                    <th class="text-right">Change</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>May 5, 2025</td>
+                                    <td class="text-right">20.00 PLN</td>
+                                    <td class="text-right">20.00 PLN</td>
+                                    <td class="text-right" style="color: var(--neutral-medium);">0.00%</td>
+                                </tr>
+                                <tr>
+                                    <td>May 4, 2025</td>
+                                    <td class="text-right">20.00 PLN</td>
+                                    <td class="text-right">20.00 PLN</td>
+                                    <td class="text-right" style="color: var(--neutral-medium);">0.00%</td>
+                                </tr>
+                                <tr>
+                                    <td>May 3, 2025</td>
+                                    <td class="text-right">20.00 PLN</td>
+                                    <td class="text-right">20.00 PLN</td>
+                                    <td class="text-right" style="color: var(--neutral-medium);">0.00%</td>
+                                </tr>
+                                <tr>
+                                    <td>May 2, 2025</td>
+                                    <td class="text-right">20.00 PLN</td>
+                                    <td class="text-right">20.00 PLN</td>
+                                    <td class="text-right" style="color: var(--neutral-medium);">0.00%</td>
+                                </tr>
+                                <tr>
+                                    <td>May 1, 2025</td>
+                                    <td class="text-right">20.00 PLN</td>
+                                    <td class="text-right">20.00 PLN</td>
+                                    <td class="text-right" style="color: var(--neutral-medium);">0.00%</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>Student Dashboard © 2025 | Warsaw University</p>
+        </footer>
+    </div>
 </body>
 </html>
